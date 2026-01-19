@@ -13,6 +13,7 @@ export interface KPITarget {
   metric: string
   targetRange: string
   criticalThreshold: string
+  source?: string
 }
 
 export interface PricingTier {
@@ -22,25 +23,69 @@ export interface PricingTier {
   highlight?: boolean
 }
 
+/**
+ * Sources for benchmark data:
+ * - ONS UK Families 2024: https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/families/bulletins/familiesandhouseholds/2024
+ * - First Page Sage SaaS Conversion: https://firstpagesage.com/seo-blog/saas-free-trial-conversion-rate-benchmarks/
+ * - First Page Sage Freemium: https://firstpagesage.com/seo-blog/saas-freemium-conversion-rates/
+ * - Growth-onomics Retention: https://growth-onomics.com/mobile-app-retention-benchmarks-by-industry-2025/
+ * - Business of Apps CAC: https://www.businessofapps.com/marketplace/user-acquisition/research/user-acquisition-costs/
+ * - Recurly Subscriber Acquisition: https://recurly.com/research/subscriber-acquisition-benchmarks/
+ */
+
+// UK market: 8.3M families with dependent children (ONS 2024)
+// 3.7M one-child + 3.4M two-child + 1.2M three+ child families
+const UK_FAMILIES_WITH_CHILDREN = 8_300_000
+
 export const executiveSummary = {
   overview: `MOLO positions itself as the "Chief Household Officer" for busy parents—an AI-powered household management system designed to reduce the mental load through automated task generation, delegation, and eventually autonomous execution.`,
-  ukRationale: `The UK market offers distinct advantages: established NHS-adjacent ecosystems for distribution, strong employer benefits culture, and cultural awareness of the "mental load" concept.`,
+  ukRationale: `The UK market offers distinct advantages: 8.3M families with dependent children (ONS 2024), established NHS-adjacent ecosystems for distribution, strong employer benefits culture, and cultural awareness of the "mental load" concept.`,
   targets: [
-    { label: 'Revenue Target', value: '100–250', unit: 'paying UK households' },
-    { label: 'Activation Rate', value: '25–40%', unit: 'waitlist → activated' },
-    { label: 'Paid Conversion', value: '8–15%', unit: 'activated → paying' },
-    { label: 'D30 Retention', value: '70%+', unit: 'for paid users' },
-    { label: 'CAC Payback', value: '<2', unit: 'months' },
+    { label: 'Revenue Target', value: '75–150', unit: 'paying UK households' },
+    { label: 'Activation Rate', value: '20–30%', unit: 'waitlist → activated' },
+    { label: 'Paid Conversion', value: '5–10%', unit: 'activated → paying' },
+    { label: 'D30 Retention', value: '65%+', unit: 'for paid users' },
+    { label: 'CAC Payback', value: '<3', unit: 'months' },
   ],
 }
 
 export const primaryKPIs: KPITarget[] = [
-  { metric: 'Waitlist → Activated', targetRange: '25–40%', criticalThreshold: '>20%' },
-  { metric: 'Activated → Paid', targetRange: '8–15%', criticalThreshold: '>5%' },
-  { metric: 'D7 Retention (Activated)', targetRange: '35–45%', criticalThreshold: '>30%' },
-  { metric: 'D30 Retention (Paid)', targetRange: '70%+', criticalThreshold: '>60%' },
-  { metric: 'CAC Payback', targetRange: '< 2 months', criticalThreshold: '< 3 months' },
-  { metric: 'UK Revenue', targetRange: '100–250 households', criticalThreshold: '>50 households' },
+  {
+    metric: 'Waitlist → Activated',
+    targetRange: '20–30%',
+    criticalThreshold: '>15%',
+    source: 'Industry benchmark ~25% for free trials (First Page Sage)',
+  },
+  {
+    metric: 'Activated → Paid',
+    targetRange: '5–10%',
+    criticalThreshold: '>3%',
+    source: 'B2C freemium: 2-5% avg, top quartile 8-12% (First Page Sage)',
+  },
+  {
+    metric: 'D7 Retention (Activated)',
+    targetRange: '30–40%',
+    criticalThreshold: '>25%',
+    source: 'Health/Fitness apps D7: 16-18% (Growth-onomics)',
+  },
+  {
+    metric: 'D30 Retention (Paid)',
+    targetRange: '65–75%',
+    criticalThreshold: '>55%',
+    source: 'Paid subscribers retain 3-5x higher than free (Recurly)',
+  },
+  {
+    metric: 'CAC Payback',
+    targetRange: '< 3 months',
+    criticalThreshold: '< 4 months',
+    source: 'Requires 60%+ organic/referral acquisition at £14.99/mo',
+  },
+  {
+    metric: 'UK Revenue',
+    targetRange: '75–150 households',
+    criticalThreshold: '>40 households',
+    source: 'Based on £5-15K budget, blended CAC ~£50-100',
+  },
 ]
 
 export const pricingTiers: PricingTier[] = [
@@ -173,9 +218,9 @@ export const weeks: WeekData[] = [
       'A/B test reminder timing (Saturday evening vs. Sunday morning)',
     ],
     kpis: [
-      { metric: 'Sunday Reset completion', target: '>40%' },
-      { metric: 'D7 retention (activated)', target: '>35%' },
-      { metric: 'Weekly plan completion', target: '>25%' },
+      { metric: 'Sunday Reset completion', target: '>35%' },
+      { metric: 'D7 retention (activated)', target: '>30%' },
+      { metric: 'Weekly plan completion', target: '>20%' },
     ],
     budget: '£0–£300',
     buildNext: 'Partner invitation UX that feels collaborative, not confrontational',
@@ -196,9 +241,9 @@ export const weeks: WeekData[] = [
       'Provide 90-day free access + tracked referral links',
     ],
     kpis: [
-      { metric: 'Activated → Paid conversion', target: '>8%' },
-      { metric: 'Creator traffic → waitlist CVR', target: '>10%' },
-      { metric: 'Creator traffic → paid CVR', target: '1–3%' },
+      { metric: 'Activated → Paid conversion', target: '>5%' },
+      { metric: 'Creator traffic → waitlist CVR', target: '>8%' },
+      { metric: 'Creator traffic → paid CVR', target: '0.5–2%' },
     ],
     budget: '£500–£1,500',
     buildNext: 'UK-specific template pack focused on school admin',
@@ -264,7 +309,7 @@ export const weeks: WeekData[] = [
       'Test referral incentives: "Invite another family, both get 1 month free"',
     ],
     kpis: [
-      { metric: 'CAC payback timeline', target: '<2 months' },
+      { metric: 'CAC payback timeline', target: '<3 months' },
       { metric: 'Referral participation rate', target: '>5%' },
       { metric: 'Paid conversion stability', target: 'no >20% decline' },
     ],
@@ -358,10 +403,10 @@ export const weeks: WeekData[] = [
       'Product Hunt submission (optional)',
     ],
     kpis: [
-      { metric: 'Launch week signups', target: '500–1,500' },
-      { metric: 'Media mentions', target: '>5 outlets' },
-      { metric: 'Social engagement', target: '3x baseline' },
-      { metric: 'Conversion rate', target: '<20% decline' },
+      { metric: 'Launch week signups', target: '300–800' },
+      { metric: 'Media mentions', target: '>3 outlets' },
+      { metric: 'Social engagement', target: '2x baseline' },
+      { metric: 'Conversion rate', target: '<25% decline' },
     ],
     budget: '£1,000–£6,000',
     buildNext: 'Advanced AI features based on user data and feedback',
@@ -439,3 +484,81 @@ export const buildBacklog = {
     ],
   },
 }
+
+export const benchmarkSources = [
+  {
+    category: 'UK Market Data',
+    sources: [
+      {
+        title: 'ONS Families and Households 2024',
+        url: 'https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/families/bulletins/familiesandhouseholds/2024',
+        note: '8.3M UK families with dependent children',
+      },
+    ],
+  },
+  {
+    category: 'Conversion Benchmarks',
+    sources: [
+      {
+        title: 'First Page Sage: SaaS Free Trial Conversion',
+        url: 'https://firstpagesage.com/seo-blog/saas-free-trial-conversion-rate-benchmarks/',
+        note: 'Free trial benchmark ~25%, opt-in trials 18.2%',
+      },
+      {
+        title: 'First Page Sage: Freemium Conversion Rates',
+        url: 'https://firstpagesage.com/seo-blog/saas-freemium-conversion-rates/',
+        note: 'B2C freemium 2-5% avg, top quartile 8-12%',
+      },
+      {
+        title: 'Recurly: Subscriber Acquisition Benchmarks',
+        url: 'https://recurly.com/research/subscriber-acquisition-benchmarks/',
+        note: 'B2C trial conversion ~60%, paid users retain much higher',
+      },
+    ],
+  },
+  {
+    category: 'Retention Benchmarks',
+    sources: [
+      {
+        title: 'Growth-onomics: Mobile App Retention 2025',
+        url: 'https://growth-onomics.com/mobile-app-retention-benchmarks-by-industry-2025/',
+        note: 'Health/Fitness D30: 10-12%, General apps D30: ~6%',
+      },
+      {
+        title: 'Plotline: Retention Rates by Industry',
+        url: 'https://www.plotline.so/blog/retention-rates-mobile-apps-by-industry',
+        note: 'Consumer apps lose 90% users within 30 days',
+      },
+    ],
+  },
+  {
+    category: 'Acquisition Costs',
+    sources: [
+      {
+        title: 'Business of Apps: User Acquisition Costs',
+        url: 'https://www.businessofapps.com/marketplace/user-acquisition/research/user-acquisition-costs/',
+        note: 'Meta CPI £3-5, effective CAC much higher after conversion',
+      },
+      {
+        title: 'Orion Byte: UK Paid Social Costs 2025',
+        url: 'https://orionbyte.co.uk/paid-social-advertising-costs-uk-2025-guide/',
+        note: 'UK CAC rising ~40% 2023-2025',
+      },
+    ],
+  },
+  {
+    category: 'Parenting App Market',
+    sources: [
+      {
+        title: 'Coherent Market Insights: Global Parenting Apps',
+        url: 'https://www.coherentmarketinsights.com/industry-reports/global-parenting-apps-market',
+        note: 'Market projected $2.4B by 2032, 13.4% CAGR',
+      },
+      {
+        title: 'Statista: Parenting App Market Forecast',
+        url: 'https://www.statista.com/statistics/1339485/parenting-app-market-forecast/',
+        note: 'Global revenues ~$542M in 2023',
+      },
+    ],
+  },
+]

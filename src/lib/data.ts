@@ -103,9 +103,10 @@ export const philosophyCards = [
 
 export const technicalHighlights = [
   "Started career as software engineer; worked hands-on for 20+ years",
-  "Side hustle: Ceetrix — managing product roadmaps for small teams and coding agents",
-  "Python, TypeScript, Rust proficiency (not just conversational knowledge)",
+  "Built systems in a variety of languages including Java, Python, Node, Rust, and Go",
+  "Builds fully working prototypes to test ideas in hours. Proficient in all coding agents",
   "Deep understanding of AI agent architectures, prompt engineering, LLM capabilities",
+  "Side hustle: Ceetrix — managing product roadmaps for small teams and coding agents",
   "Machine learning experience dating back to early 2000s (Friends Provident real-time underwriting)",
 ] as const
 

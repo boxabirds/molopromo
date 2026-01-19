@@ -2,6 +2,7 @@
 
 **Research Date:** January 2026
 **Sources:** [moloapp.io](https://www.moloapp.io), [Shamanlist Investment Memo](https://shamanlist.substack.com/p/molo-ai-for-family-admin-seiseis), web research
+**Fact-checked:** January 2026
 
 ---
 
@@ -12,8 +13,8 @@ MOLO is an AI-powered "Chief Household Officer" designed to reduce the mental lo
 
 ### Core Value Proposition
 - **Action over advice**: Delivers completed outputs, not productivity tips
-- **Mental load reduction**: Targets the ~20 hours/week parents spend on family planning
-- **Gender equity angle**: Addresses the disproportionate burden on women (81% of mums experience burnout)
+- **Mental load reduction**: Targets family planning cognitive load (MOLO claims ~20 hrs/week; academic research shows this is difficult to measure precisely — see notes below)
+- **Gender equity angle**: 81% of UK mums have experienced burnout (verified: Peanut app + Tommee Tippee survey, 2,000 UK mothers, Jan 2025)
 
 ### Target Market
 - **UK:** 8.7M families with dependent children
@@ -94,7 +95,7 @@ Based on funding documents and interviews:
 |--------|------|------|
 | **HQ** | UK | US (YC-backed) |
 | **Channel** | WhatsApp | SMS |
-| **Price** | £25-50/mo | $24-40/mo |
+| **Price** | £25-50/mo | $24/mo (beta) or $40/mo (standard) |
 | **Focus** | Task execution | Information organization |
 | **Tech** | Agentic AI | GPT-4 + human-in-loop |
 
@@ -108,7 +109,7 @@ Based on funding documents and interviews:
 1. UK-focused (local supermarkets, school systems, terminology)
 2. WhatsApp-native (ubiquitous in UK)
 3. Agentic execution (not just organization)
-4. Founder with PE-backed exit experience
+4. Founder with prior exit experience (2021, claimed PE-backed per Shamanlist)
 
 ---
 
@@ -256,20 +257,24 @@ interface Task {
 
 #### 6.4 UK Grocery Integration
 
-**Challenge:** No Instacart equivalent in UK. Options:
+**Challenge:** No Instacart equivalent in UK. **⚠️ FACT-CHECK: UK grocery APIs are essentially non-existent for third-party ordering.**
 
-| Retailer | API Availability | Approach |
-|----------|------------------|----------|
-| **Tesco** | Legacy API exists | Apply for developer access |
-| **Ocado** | Partner API | Requires partnership agreement |
-| **Sainsbury's** | No public API | Browser automation or affiliate |
-| **Amazon Fresh** | No public API | Affiliate links only |
+| Retailer | API Availability | Reality |
+|----------|------------------|---------|
+| **Tesco** | ❌ **DISCONTINUED** | Tesco Labs developer portal has stopped issuing API subscriptions. Legacy libraries exist but no new access. |
+| **Ocado** | ❌ No public API | Ocado Smart Platform is B2B for retail partners only. No third-party ordering API. EDI for suppliers only. |
+| **Sainsbury's** | ❌ No public API | No developer access |
+| **Amazon Fresh** | ❌ No public API | Affiliate links only |
+
+**Third-Party Alternatives:**
+- Scraping APIs exist (Unwrangle, Apify, Real Data API) but violate ToS and are unreliable
+- productDNA provides product data sharing but not ordering
 
 **Pragmatic Approach (MVP):**
 1. Generate shopping list with exact product names
-2. Deep link to retailer search/basket
-3. Explore affiliate partnerships
-4. Long-term: formal API partnerships
+2. Deep link to retailer search (not basket - no API for that)
+3. Copy-to-clipboard formatted lists
+4. Long-term: pursue formal retail partnerships (hard, requires scale)
 
 #### 6.5 Calendar Integration
 
@@ -365,14 +370,53 @@ async def create_calendar_event(
 
 ---
 
-## 10. Sources
+## 10. Fact-Check Notes
 
-- [MOLO Official Site](https://www.moloapp.io)
-- [Shamanlist: MOLO Investment Memo](https://shamanlist.substack.com/p/molo-ai-for-family-admin-seiseis)
-- [Milo (competitor)](https://www.joinmilo.com/)
+### ✅ Verified Claims
+| Claim | Source | Status |
+|-------|--------|--------|
+| 81% UK mums experienced burnout | Peanut + Tommee Tippee survey (2,000 UK mothers, Jan 2025) | ✅ Verified |
+| Parenting declared public health crisis | US Surgeon General Advisory, 2024 | ✅ Verified (US, not UK specifically) |
+| MOLO raising £750K at £3M pre-money | Shamanlist investment memo | ✅ Verified (single source) |
+| MOLO pilot Aug 2025, 100% WAU | Shamanlist investment memo | ✅ Verified (single source) |
+| Milo pricing $24-40/mo | Multiple sources | ✅ Verified ($24 beta, $40 standard) |
+
+### ⚠️ Caveats / Corrections
+| Claim | Issue |
+|-------|-------|
+| "~20 hours/week on family planning" | MOLO marketing claim. Academic research shows cognitive household labor is "time unbounding" and hard to measure. The 20hr figure may conflate all child-focused activities, not just planning. |
+| "Tesco API exists" | ❌ **WRONG.** Tesco Labs developer portal has stopped issuing subscriptions. No new API access available. |
+| "Ocado Partner API" | ❌ **MISLEADING.** Ocado Smart Platform is for retail partners (like Kroger), not third-party app developers. No ordering API. |
+| "Sophie Bruce PE-backed exit 2021" | Only source is Shamanlist. LinkedIn confirms "successful exit 2021" but doesn't specify PE. |
+
+### ❓ Unverified
+| Claim | Notes |
+|-------|-------|
+| "8.7M UK families" market size | Plausible but not independently verified |
+| "45+ years combined team experience" | From Shamanlist only |
+| "8 affiliate deals signed" | From Shamanlist only |
+
+---
+
+## 11. Sources
+
+### Primary
+- [Shamanlist: MOLO Investment Memo](https://shamanlist.substack.com/p/molo-ai-for-family-admin-seiseis) - Main source for MOLO details
+- [MOLO Official Site](https://www.moloapp.io) - Limited info (Wix site)
+
+### Competitors
+- [Milo (joinmilo.com)](https://www.joinmilo.com/)
 - [Y Combinator: Milo](https://www.ycombinator.com/companies/milo)
-- [Instacart Developer Platform](https://docs.instacart.com/connect/)
-- [WhatsApp + LangGraph Tutorial](https://medium.com/data-science/creating-a-whatsapp-ai-agent-with-gpt-4o-f0bc197d2ac0)
-- [Twilio WhatsApp API](https://www.twilio.com/docs/whatsapp)
 - [Ohai.ai](https://www.ohai.ai/)
 - [Goldee AI](https://www.goldee.ai/)
+
+### Fact-Check Sources
+- [HuffPost UK: 81% mums burnout](https://www.huffingtonpost.co.uk/entry/signs-of-parental-burnout-uk_uk_679bb9dce4b0db2051ad1fe2)
+- [US Surgeon General Advisory on Parental Stress](https://psychiatryonline.org/doi/10.1176/appi.pn.2025.02.2.12)
+- [Tesco Labs Developer Portal](https://devportal.tescolabs.com/) - Confirms subscriptions discontinued
+- [PMC: Invisible Household Labor](https://pmc.ncbi.nlm.nih.gov/articles/PMC8223758/)
+
+### Technical
+- [Instacart Developer Platform](https://docs.instacart.com/connect/) - US only
+- [WhatsApp + LangGraph Tutorial](https://medium.com/data-science/creating-a-whatsapp-ai-agent-with-gpt-4o-f0bc197d2ac0)
+- [Twilio WhatsApp API](https://www.twilio.com/docs/whatsapp)
